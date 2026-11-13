@@ -1,0 +1,5786 @@
+[
+  {
+    "name": "authorization_generate_access_token",
+    "service": "paypal",
+    "category": "authorization",
+    "description": "Shows user profile information. Filters the response by a schema. Supported schema value is `paypalv1.1`.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/oauth2/token",
+    "params": [
+      {
+        "name": "grant_type",
+        "key": "grant_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The credential type to exchange for an access token."
+      },
+      {
+        "name": "grant_type_",
+        "key": "grant_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The credential type to exchange for an access token."
+      },
+      {
+        "name": "refresh_token",
+        "key": "refresh_token",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The refresh token. Use to get access tokens. Use the same authorization grant as described in [OAuth2.0 RFC6749 Section 6](https://tools.ietf.org/html/rfc6749#section-6). Returns value only for `POST /token` calls with a `grant_type` of `authorization_code`."
+      },
+      {
+        "name": "grant_type__",
+        "key": "grant_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The credential type to exchange for an access token."
+      },
+      {
+        "name": "code",
+        "key": "code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The authorization code that the `/login` call returns to the client to complete a user log in and get a third-party access token. Required if the `grant_type` is `authorization_code`."
+      },
+      {
+        "name": "ignoreCache",
+        "key": "ignoreCache",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "A new token is issued ignoring the previously issued and still not expired token."
+      },
+      {
+        "name": "return_authn_schemes",
+        "key": "return_authn_schemes",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "Lists user authentication options and returns a first-party access token to authenticate an end user. Valid for all grant types except the `authzcode` authorization code, which indicates that the user is already authenticated."
+      },
+      {
+        "name": "return_client_metadata",
+        "key": "return_client_metadata",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "Lists client metadata attributes. Valid for all grant types."
+      },
+      {
+        "name": "return_unconsented_scopes",
+        "key": "return_unconsented_scopes",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "Lists unconsented scopes between the user and client. Valid for all grant types except `client_credentials`."
+      },
+      {
+        "name": "redirect_uri",
+        "key": "redirect_uri",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The redirection endpoint that terminates the user authorization flow. The value must be an EXACT match to the URI registered for the client during the client registration. If you pass the `target_client_id` parameter, the URI must be `target_client_id`. The out-of-band value is `urn:ietf:wg:oauth:2.0:oob`. Native apps can use the `redirect_uri` parameter."
+      },
+      {
+        "name": "response_type",
+        "key": "response_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "A space-separated list of token types. If the list is valid, the API returns all requested token types."
+      },
+      {
+        "name": "response_type_",
+        "key": "response_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "claims",
+        "key": "claims[]",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The client-specific key-and-value pairs associated with the access token. You can retrieve these pairs through the security context. Use a comma (`,`) to separate the key-and-value pairs."
+      },
+      {
+        "name": "scope",
+        "key": "scope",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "A list of space-separated and case-sensitive scopes, or permissions, to associate with the access token. If you omit this value, the API assumes the maximum set of allowed scopes. The scopes must be one of these values: A subset of the scopes authorized for the client. Consented by the user in case of end-user scopes. Associated with the refresh token, depending on the `grant_type`."
+      },
+      {
+        "name": "device_info",
+        "key": "device_info",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The URL-encoded key-and-value pair that defines device information. If `unbind_device` is `true`, you must include the `device_info` or `refresh_token` parameter."
+      },
+      {
+        "name": "app_info",
+        "key": "app_info",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The URL-encoded key-and-value pair that defines application information. If `unbind_device` is `true`, you must include the `app_info` or `refresh_token` parameter."
+      },
+      {
+        "name": "risk_data",
+        "key": "risk_data",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The URL-encoded key-and-value pairs of data required by risk. You can typically obtain values through the Dyson library. Required for public clients."
+      },
+      {
+        "name": "target_subject",
+        "key": "target_subject",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The email address or payer ID of the user for whom you want to create an access token. Required if the `grant_type` is `client_credentials`, `refresh_token`, or `urn:paypal:params:oauth2:grant_type:unique_device_identifier`. This kind of `/token` request comes from a legacy client without REST API credentials."
+      },
+      {
+        "name": "target_client_id",
+        "key": "target_client_id",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The client ID of the client application for which the access token is created. Because the client who makes this kind of `/bind` request is a proxy, identifies the real client application. The client ID must have the `GRANT_PROXY_CLIENT` scope to use the `target_client_id` parameter."
+      },
+      {
+        "name": "partner_client_id",
+        "key": "partner_client_id",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": "The ID of the partner with permission granted by the merchant for the partner to create the access token. Required, and only relevant, if the `grant_type` is set to `client_credentials`, `refresh_token`, or `urn:paypal:params:oauth2:grant_type:unique_device_identifier"
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "authorization_terminate_access_token",
+    "service": "paypal",
+    "category": "authorization",
+    "description": "Terminate access_token",
+    "method": "POST",
+    "url": "{{base_url}}/v1/oauth2/token/terminate",
+    "params": [
+      {
+        "name": "token",
+        "key": "token",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "token_type_hint",
+        "key": "token_type_hint",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "grant_type",
+        "key": "grant_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "grant_type_",
+        "key": "grant_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "refresh_token",
+        "key": "refresh_token",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "grant_type__",
+        "key": "grant_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "code",
+        "key": "code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "authorization_user_info",
+    "service": "paypal",
+    "category": "authorization",
+    "description": "Shows user profile information. Filters the response by a schema. Supported schema value is `paypalv1.1`.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/identity/oauth2/userinfo?schema=paypalv1.1",
+    "params": [
+      {
+        "name": "schema",
+        "key": "schema",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "(Required) Filters the response by a schema. Supported value is `paypalv1.1`."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "authorization_generate_client_token",
+    "service": "paypal",
+    "category": "authorization",
+    "description": "Generate client_token",
+    "method": "POST",
+    "url": "{{base_url}}/v1/identity/generate-token",
+    "params": [
+      {
+        "name": "customer_id",
+        "key": "customer_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "orders_create_order",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Creates an order.<blockquote><strong>Note:</strong> For error handling and troubleshooting, see <a href=\"https://developer.paypal.com/api/rest/reference/orders/v2/errors/#create-order\">Orders v2 errors</a>.</blockquote>",
+    "method": "POST",
+    "url": "{{base_url}}/v2/checkout/orders",
+    "params": [
+      {
+        "name": "intent",
+        "key": "intent",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__paypal__experience_context__return_url",
+        "key": "payment_source.paypal.experience_context.return_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__paypal__experience_context__cancel_url",
+        "key": "payment_source.paypal.experience_context.cancel_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__paypal__experience_context__user_action",
+        "key": "payment_source.paypal.experience_context.user_action",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "purchase_units",
+        "key": "purchase_units",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "orders_confirm_payment_source",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Payer confirms their intent to pay for the the Order with the given payment source. <blockquote><b>Note:</b> For error handling and troubleshooting, see <a href=\"https://developer.paypal.com/docs/api/orders/v2/#orders_confirm\" target=\"_blank\" url=\"https://developer.paypal.com/docs/api/orders/v2/#orders_confirm\">Confirm the Order</a>.</blockquote>",
+    "method": "POST",
+    "url": "{{base_url}}/v2/checkout/orders/:order_id/confirm-payment-source",
+    "params": [
+      {
+        "name": "order_id",
+        "key": "order_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__number",
+        "key": "payment_source.card.number",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__expiry",
+        "key": "payment_source.card.expiry",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "orders_show_order_details",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Shows details for an order, by ID.<blockquote><strong>Note:</strong> For error handling and troubleshooting, see <a href=\"https://developer.paypal.com/api/rest/reference/orders/v2/errors/#get-order\">Orders v2 errors</a>.</blockquote>",
+    "method": "GET",
+    "url": "{{base_url}}/v2/checkout/orders/:order_id",
+    "params": [
+      {
+        "name": "order_id",
+        "key": "order_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "orders_update_order",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Updates an order with a `CREATED` or `APPROVED` status. You cannot update an order with the `COMPLETED` status.<br/><br/>To make an update, you must provide a `reference_id`. If you omit this value with an order that contains only one purchase unit, PayPal sets the value to `default` which enables you to use the path: <code>\"/purchase_units/@reference_id=='default'/{attribute-or-object}\"</code>.<blockquote><strong>Note:</strong> For error handling and troubleshooting, see <a href=\"https://developer.paypal.com/api/rest/reference/orders/v2/errors/#link-patchorder\">Orders v2 errors</a>.</blockquo",
+    "method": "PATCH",
+    "url": "{{base_url}}/v2/checkout/orders/:order_id",
+    "params": [
+      {
+        "name": "order_id",
+        "key": "order_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "orders_authorize_payment_for_order",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Authorizes payment for an order. To successfully authorize payment for an order, the buyer must first approve the order or a valid payment_source must be provided in the request. A buyer can approve the order upon being redirected to the rel:approve URL that was returned in the HATEOAS links in the create order response.<blockquote><strong>Note:</strong> For error handling and troubleshooting, see <a href=\"https://developer.paypal.com/api/rest/reference/orders/v2/errors/#link-authorizeorder\">Orders v2 errors</a>.</blockquote>",
+    "method": "POST",
+    "url": "{{base_url}}/v2/checkout/orders/:order_id/authorize",
+    "params": [
+      {
+        "name": "order_id",
+        "key": "order_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "orders_capture_payment_for_order",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Captures payment for an order. To successfully capture payment for an order, the buyer must first approve the order or a valid payment_source must be provided in the request. A buyer can approve the order upon being redirected to the rel:approve URL that was returned in the HATEOAS links in the create order response.<blockquote><strong>Note:</strong> For error handling and troubleshooting, see <a href=\"https://developer.paypal.com/api/rest/reference/orders/v2/errors/#link-captureorder\">Orders v2 errors</a>.</blockquote>",
+    "method": "POST",
+    "url": "{{base_url}}/v2/checkout/orders/:order_id/capture",
+    "params": [
+      {
+        "name": "order_id",
+        "key": "order_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "orders_confirm_payment_source_3ds",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Payer confirms their intent to pay for the the Order with the given payment source. > **Note:** For error handling and troubleshooting, see [Confirm the Order](https://developer.paypal.com/docs/api/orders/v2/#orders_confirm).",
+    "method": "POST",
+    "url": "{{base_url}}/v2/checkout/orders/:order_id/confirm-payment-source",
+    "params": [
+      {
+        "name": "order_id",
+        "key": "order_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__number",
+        "key": "payment_source.card.number",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__expiry",
+        "key": "payment_source.card.expiry",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__name",
+        "key": "payment_source.card.name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__address_line_1",
+        "key": "payment_source.card.billing_address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__address_line_2",
+        "key": "payment_source.card.billing_address.address_line_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__admin_area_1",
+        "key": "payment_source.card.billing_address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__admin_area_2",
+        "key": "payment_source.card.billing_address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__postal_code",
+        "key": "payment_source.card.billing_address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__country_code",
+        "key": "payment_source.card.billing_address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__attributes__verification",
+        "key": "payment_source.card.attributes.verification",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "orders_add_tracking_information_for_an_order",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Adds tracking information for an Order. <blockquote><b>Note:</b> For error handling and troubleshooting, see<a href=\"https://developer.paypal.com/docs/api/orders/v2/#orders_track_create\">Add tracker information for an Order</a>.</blockquote>",
+    "method": "POST",
+    "url": "{{base_url}}/v2/checkout/orders/:order_id/track",
+    "params": [
+      {
+        "name": "order_id",
+        "key": "order_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "capture_id",
+        "key": "capture_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tracking_number",
+        "key": "tracking_number",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "carrier",
+        "key": "carrier",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "orders_update_tracking_information_for_an_order",
+    "service": "paypal",
+    "category": "orders",
+    "description": "Updates or cancels the tracking information for a PayPal order, by ID. <blockquote><b>Note:</b> For error handling and troubleshooting, see <a rel=\"noreferrer noopener nofollow\" href=\"https://developer.paypal.com/docs/api/orders/v2/#orders_trackers_patch\" target=\"_blank\" url=\"https://developer.paypal.com/docs/api/orders/v2/#orders_trackers_patch\">Update or cancel tracking information for an order</a>.</blockquote>",
+    "method": "PATCH",
+    "url": "{{base_url}}/v2/checkout/orders/:order_id/trackers/:tracking_id",
+    "params": [
+      {
+        "name": "order_id",
+        "key": "order_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tracking_id",
+        "key": "tracking_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "payments_show_details_for_authorized_payment",
+    "service": "paypal",
+    "category": "payments",
+    "description": "Shows details for an authorized payment, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v2/payments/authorizations/:authorization_id",
+    "params": [
+      {
+        "name": "authorization_id",
+        "key": "authorization_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "payments_reauthorize_authorized_payment",
+    "service": "paypal",
+    "category": "payments",
+    "description": "Reauthorizes an authorized PayPal account payment, by ID. To ensure that funds are still available, reauthorize a payment after its initial three-day honor period expires. Within the 29-day authorization period, you can issue multiple re-authorizations after the honor period expires.<br/><br/>If 30 days have transpired since the date of the original authorization, you must create an authorized payment instead of reauthorizing the original authorized payment.<br/><br/>A reauthorized payment itself has a new honor period of three days.<br/><br/>You can reauthorize an authorized payment once for ",
+    "method": "POST",
+    "url": "{{base_url}}/v2/payments/authorizations/:authorization_id/reauthorize",
+    "params": [
+      {
+        "name": "authorization_id",
+        "key": "authorization_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__value",
+        "key": "amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__currency_code",
+        "key": "amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "payments_void_authorized_payment",
+    "service": "paypal",
+    "category": "payments",
+    "description": "Voids, or cancels, an authorized payment, by ID. You cannot void an authorized payment that has been fully captured.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/payments/authorizations/:authorization_id/void",
+    "params": [
+      {
+        "name": "authorization_id",
+        "key": "authorization_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "payments_capture_authorized_payment",
+    "service": "paypal",
+    "category": "payments",
+    "description": "Captures an authorized payment, by ID.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/payments/authorizations/:authorization_id/capture",
+    "params": [
+      {
+        "name": "authorization_id",
+        "key": "authorization_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__value",
+        "key": "amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__currency_code",
+        "key": "amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "final_capture",
+        "key": "final_capture",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "note_to_payer",
+        "key": "note_to_payer",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "soft_descriptor",
+        "key": "soft_descriptor",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "payments_show_captured_payment_details",
+    "service": "paypal",
+    "category": "payments",
+    "description": "Shows details for a captured payment, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v2/payments/captures/:capture_id",
+    "params": [
+      {
+        "name": "capture_id",
+        "key": "capture_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "payments_refund_captured_payment",
+    "service": "paypal",
+    "category": "payments",
+    "description": "Refunds a captured payment, by ID. For a full refund, include an empty payload in the JSON request body. For a partial refund, include an <code>amount</code> object in the JSON request body.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/payments/captures/:capture_id/refund",
+    "params": [
+      {
+        "name": "capture_id",
+        "key": "capture_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__value",
+        "key": "amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__currency_code",
+        "key": "amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note_to_payer",
+        "key": "note_to_payer",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "payments_show_refund_details",
+    "service": "paypal",
+    "category": "payments",
+    "description": "Shows details for a refund, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v2/payments/refunds/:refund_id",
+    "params": [
+      {
+        "name": "refund_id",
+        "key": "refund_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "invoices_generate_invoice_number",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Generates the next invoice number that is available to the merchant. The next invoice number uses the prefix and suffix from the last invoice number and increments the number by one. For example, the next invoice number after `INVOICE-1234` is `INVOICE-1235`.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/generate-next-invoice-number",
+    "params": [],
+    "risk": "write"
+  },
+  {
+    "name": "invoices_create_draft_invoice",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Creates a draft invoice. To move the invoice from a draft to payable state, you must <a href=\"#invoices_send\">send the invoice</a>.<br/><br/>In the JSON request body, include invoice details including merchant information. The <code>invoice</code> object must include an <code>items</code> array.<blockquote><strong>Note:</strong> The merchant that you specify in an invoice must have a PayPal account in good standing.</blockquote>.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/invoices",
+    "params": [
+      {
+        "name": "detail__invoice_number",
+        "key": "detail.invoice_number",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__invoice_date",
+        "key": "detail.invoice_date",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__payment_term__term_type",
+        "key": "detail.payment_term.term_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__payment_term__due_date",
+        "key": "detail.payment_term.due_date",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__currency_code",
+        "key": "detail.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__reference",
+        "key": "detail.reference",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__note",
+        "key": "detail.note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__terms_and_conditions",
+        "key": "detail.terms_and_conditions",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__memo",
+        "key": "detail.memo",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__name__given_name",
+        "key": "invoicer.name.given_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__name__surname",
+        "key": "invoicer.name.surname",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__address_line_1",
+        "key": "invoicer.address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__address_line_2",
+        "key": "invoicer.address.address_line_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__admin_area_2",
+        "key": "invoicer.address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__admin_area_1",
+        "key": "invoicer.address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__postal_code",
+        "key": "invoicer.address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__country_code",
+        "key": "invoicer.address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__phones",
+        "key": "invoicer.phones",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "invoicer__website",
+        "key": "invoicer.website",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__tax_id",
+        "key": "invoicer.tax_id",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__logo_url",
+        "key": "invoicer.logo_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__additional_notes",
+        "key": "invoicer.additional_notes",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "primary_recipients",
+        "key": "primary_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "items",
+        "key": "items",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "configuration__partial_payment__allow_partial_payment",
+        "key": "configuration.partial_payment.allow_partial_payment",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "configuration__partial_payment__minimum_amount_due__currency_code",
+        "key": "configuration.partial_payment.minimum_amount_due.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "configuration__partial_payment__minimum_amount_due__value",
+        "key": "configuration.partial_payment.minimum_amount_due.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "configuration__allow_tip",
+        "key": "configuration.allow_tip",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "configuration__tax_calculated_after_discount",
+        "key": "configuration.tax_calculated_after_discount",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "configuration__tax_inclusive",
+        "key": "configuration.tax_inclusive",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__custom__label",
+        "key": "amount.breakdown.custom.label",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__custom__amount",
+        "key": "amount.breakdown.custom.amount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__shipping__amount",
+        "key": "amount.breakdown.shipping.amount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__shipping__tax",
+        "key": "amount.breakdown.shipping.tax",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__discount__invoice_discount",
+        "key": "amount.breakdown.discount.invoice_discount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "invoices_show_invoice_details",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Shows details for an invoice, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "invoices_list_invoices",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Lists invoices. To filter the invoices that appear in the response, you can specify one or more optional query parameters.",
+    "method": "GET",
+    "url": "{{base_url}}/v2/invoicing/invoices?page=1&page_size=10&total_required=true&fields=amount",
+    "params": [
+      {
+        "name": "page",
+        "key": "page",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The page number to be retrieved, for the list of items. So, a combination of `page=1` and `page_size=20` returns the first 20 invoices. A combination of `page=2` and `page_size=20` returns the next 20 invoices."
+      },
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The maximum number of invoices to return in the response."
+      },
+      {
+        "name": "total_required",
+        "key": "total_required",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether the to show <code>total_pages</code> and <code>total_items</code> in the response."
+      },
+      {
+        "name": "fields",
+        "key": "fields",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "A comma-separated list of additional fields to return, if available."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "invoices_generate_qr_code",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Generates a QR code for an invoice, by ID. The QR code is a PNG image in <a href=\"https://www.base64encode.org/\">Base64-encoded</a> format that corresponds to the invoice ID. You can generate a QR code for an invoice and add it to a paper or PDF invoice. When customers use their mobile devices to scan the QR code, they are redirected to the PayPal mobile payment flow where they can view the invoice and pay online with PayPal or a credit card. Before you get a QR code, you must <a href=\"#invoices_create\">create an invoice</a> and <a href=\"#invoices_send\">send an invoice</a> to move the invoice ",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id/generate-qr-code",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "width",
+        "key": "width",
+        "location": "body",
+        "required": false,
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "height",
+        "key": "height",
+        "location": "body",
+        "required": false,
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "action",
+        "key": "action",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "invoices_fully_update_invoice",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Fully updates an invoice, by ID. In the JSON request body, include a complete `invoice` object. This call does not support partial updates.",
+    "method": "PUT",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id?send_to_recipient=true&send_to_invoicer=true",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "send_to_recipient",
+        "key": "send_to_recipient",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether to send the invoice update notification to the recipient."
+      },
+      {
+        "name": "send_to_invoicer",
+        "key": "send_to_invoicer",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether to send the invoice update notification to the merchant."
+      },
+      {
+        "name": "id",
+        "key": "id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "key": "status",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__invoice_number",
+        "key": "detail.invoice_number",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__reference",
+        "key": "detail.reference",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__invoice_date",
+        "key": "detail.invoice_date",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__currency_code",
+        "key": "detail.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__note",
+        "key": "detail.note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__term",
+        "key": "detail.term",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__memo",
+        "key": "detail.memo",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__payment_term__term_type",
+        "key": "detail.payment_term.term_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "detail__payment_term__due_date",
+        "key": "detail.payment_term.due_date",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__name__given_name",
+        "key": "invoicer.name.given_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__name__surname",
+        "key": "invoicer.name.surname",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__address_line_1",
+        "key": "invoicer.address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__address_line_2",
+        "key": "invoicer.address.address_line_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__admin_area_2",
+        "key": "invoicer.address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__admin_area_1",
+        "key": "invoicer.address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__postal_code",
+        "key": "invoicer.address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__address__country_code",
+        "key": "invoicer.address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__phones",
+        "key": "invoicer.phones",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "invoicer__website",
+        "key": "invoicer.website",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__tax_id",
+        "key": "invoicer.tax_id",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__logo_url",
+        "key": "invoicer.logo_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoicer__additional_notes",
+        "key": "invoicer.additional_notes",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "primary_recipients",
+        "key": "primary_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "items",
+        "key": "items",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "configuration__partial_payment__allow_partial_payment",
+        "key": "configuration.partial_payment.allow_partial_payment",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "configuration__partial_payment__minimum_amount_due__currency_code",
+        "key": "configuration.partial_payment.minimum_amount_due.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "configuration__partial_payment__minimum_amount_due__value",
+        "key": "configuration.partial_payment.minimum_amount_due.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "configuration__allow_tip",
+        "key": "configuration.allow_tip",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "configuration__tax_calculated_after_discount",
+        "key": "configuration.tax_calculated_after_discount",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "configuration__tax_inclusive",
+        "key": "configuration.tax_inclusive",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "amount__currency_code",
+        "key": "amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__value",
+        "key": "amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__item_total__currency_code",
+        "key": "amount.breakdown.item_total.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__item_total__value",
+        "key": "amount.breakdown.item_total.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__custom__label",
+        "key": "amount.breakdown.custom.label",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__custom__amount",
+        "key": "amount.breakdown.custom.amount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__shipping__amount",
+        "key": "amount.breakdown.shipping.amount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__shipping__tax",
+        "key": "amount.breakdown.shipping.tax",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__discount__item_discount",
+        "key": "amount.breakdown.discount.item_discount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__discount__invoice_discount",
+        "key": "amount.breakdown.discount.invoice_discount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__tax_total__currency_code",
+        "key": "amount.breakdown.tax_total.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__breakdown__tax_total__value",
+        "key": "amount.breakdown.tax_total.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "invoices_send_invoice",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Sends or schedules an invoice, by ID, to be sent to a customer. The action depends on the invoice issue date:<ul><li>If the invoice issue date is current or in the past, sends the invoice immediately.</li><li>If the invoice issue date is in the future, schedules the invoice to be sent on that date.</li></ul>To suppress the merchant's email notification, set the `send_to_invoicer` body parameter to `false`. To send the invoice through a share link and not through PayPal, set the <code>send_to_recipient</code> parameter to <code>false</code> in the <code>notification</code> object. The <code>sen",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id/send",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subject",
+        "key": "subject",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "send_to_recipient",
+        "key": "send_to_recipient",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "additional_recipients",
+        "key": "additional_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "send_to_invoicer",
+        "key": "send_to_invoicer",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "invoices_send_invoice_reminder",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Sends a reminder to the payer about an invoice, by ID. In the JSON request body, include a `notification` object that defines the subject of the reminder and other details.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id/remind",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subject",
+        "key": "subject",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "send_to_recipient",
+        "key": "send_to_recipient",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "additional_recipients",
+        "key": "additional_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "send_to_invoicer",
+        "key": "send_to_invoicer",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "invoices_cancel_sent_invoice",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Cancels a sent invoice, by ID, and, optionally, sends a notification about the cancellation to the payer, merchant, and CC: emails.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id/cancel",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subject",
+        "key": "subject",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "send_to_invoicer",
+        "key": "send_to_invoicer",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "send_to_recipient",
+        "key": "send_to_recipient",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "additional_recipients",
+        "key": "additional_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "invoices_delete_invoice",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Deletes a draft or scheduled invoice, by ID. Deletes invoices in the draft or scheduled state only. For invoices that have already been sent, you can <a href=\"https://developer.paypal.com/api/invoicing/v2/#invoices_cancel\">cancel the invoice</a>. After you delete a draft or scheduled invoice, you can no longer use it or show its details. However, you can reuse its invoice number.",
+    "method": "DELETE",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "invoices_search_for_invoices",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Searches for and lists invoices that match search criteria. If you pass multiple criteria, the response lists invoices that match all criteria.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/search-invoices?page=1&page_size=10&total_required=true",
+    "params": [
+      {
+        "name": "page",
+        "key": "page",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The page number to be retrieved, for the list of items. So, a combination of `page=1` and `page_size=20` returns the first 20 invoices. A combination of `page=2` and `page_size=20` returns the next 20 invoices."
+      },
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The page size for the search results."
+      },
+      {
+        "name": "total_required",
+        "key": "total_required",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether the to show <code>total_pages</code> and <code>total_items</code> in the response."
+      },
+      {
+        "name": "recipient_email",
+        "key": "recipient_email",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "recipient_first_name",
+        "key": "recipient_first_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "recipient_last_name",
+        "key": "recipient_last_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "recipient_business_name",
+        "key": "recipient_business_name",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoice_number",
+        "key": "invoice_number",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "key": "status",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "reference",
+        "key": "reference",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "currency_code",
+        "key": "currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "memo",
+        "key": "memo",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "total_amount_range__lower_amount__currency_code",
+        "key": "total_amount_range.lower_amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "total_amount_range__lower_amount__value",
+        "key": "total_amount_range.lower_amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "total_amount_range__upper_amount__currency_code",
+        "key": "total_amount_range.upper_amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "total_amount_range__upper_amount__value",
+        "key": "total_amount_range.upper_amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoice_date_range__start",
+        "key": "invoice_date_range.start",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "invoice_date_range__end",
+        "key": "invoice_date_range.end",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "invoices_record_payment_for_invoice",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Records a payment for the invoice. If no payment is due, the invoice is marked as `PAID`. Otherwise, the invoice is marked as `PARTIALLY PAID`.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id/payments",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "method",
+        "key": "method",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_date",
+        "key": "payment_date",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__currency_code",
+        "key": "amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__value",
+        "key": "amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "key": "type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "transaction_type",
+        "key": "transaction_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_info__name__given_name",
+        "key": "shipping_info.name.given_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_info__name__surname",
+        "key": "shipping_info.name.surname",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_info__address__address_line_1",
+        "key": "shipping_info.address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_info__address__admin_area_2",
+        "key": "shipping_info.address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_info__address__admin_area_1",
+        "key": "shipping_info.address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_info__address__postal_code",
+        "key": "shipping_info.address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_info__address__country_code",
+        "key": "shipping_info.address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "invoices_delete_external_payment",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Deletes an external payment, by invoice ID and transaction ID.",
+    "method": "DELETE",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id/payments/:transaction_id",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "transaction_id",
+        "key": "transaction_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "invoices_record_refund_for_invoice",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Records a refund for the invoice. If all payments are refunded, the invoice is marked as `REFUNDED`. Otherwise, the invoice is marked as `PARTIALLY REFUNDED`.",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id/refunds",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "method",
+        "key": "method",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "refund_date",
+        "key": "refund_date",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__currency_code",
+        "key": "amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__value",
+        "key": "amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "invoices_delete_external_refund",
+    "service": "paypal",
+    "category": "invoices",
+    "description": "Deletes an external refund, by invoice ID and transaction ID.",
+    "method": "DELETE",
+    "url": "{{base_url}}/v2/invoicing/invoices/:invoice_id/refunds/:transaction_id",
+    "params": [
+      {
+        "name": "invoice_id",
+        "key": "invoice_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "transaction_id",
+        "key": "transaction_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "templates_list_templates",
+    "service": "paypal",
+    "category": "templates",
+    "description": "Lists merchant-created templates with associated details. The associated details include the emails, addresses, and phone numbers from the user's PayPal profile.<br/>The user can select which values to show in the business information section of their template.",
+    "method": "GET",
+    "url": "{{base_url}}/v2/invoicing/templates?fields=all&page=1&page_size=10",
+    "params": [
+      {
+        "name": "fields",
+        "key": "fields",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The fields to return in the response. Value is `all` or `none`. To return only the template name, ID, and default attributes, specify `none`."
+      },
+      {
+        "name": "page",
+        "key": "page",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The page number to be retrieved, for the list of templates. So, a combination of `page=1` and `page_size=20` returns the first 20 templates. A combination of `page=2` and `page_size=20` returns the next 20 templates."
+      },
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The maximum number of templates to return in the response."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "templates_create_template",
+    "service": "paypal",
+    "category": "templates",
+    "description": "Creates an invoice template. You can use details from this template to create an invoice. You can create up to 50 templates.<blockquote><strong>Note:</strong> Every merchant starts with three PayPal system templates that are optimized for the unit type billed. The template includes `Quantity`, `Hours`, and `Amount`.</blockquote>",
+    "method": "POST",
+    "url": "{{base_url}}/v2/invoicing/templates",
+    "params": [
+      {
+        "name": "name",
+        "key": "name",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "default_template",
+        "key": "default_template",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__tax_calculated_after_discount",
+        "key": "template_info.configuration.tax_calculated_after_discount",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__tax_inclusive",
+        "key": "template_info.configuration.tax_inclusive",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__allow_tip",
+        "key": "template_info.configuration.allow_tip",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__partial_payment__allow_partial_payment",
+        "key": "template_info.configuration.partial_payment.allow_partial_payment",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__partial_payment__minimum_amount_due",
+        "key": "template_info.configuration.partial_payment.minimum_amount_due",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__reference",
+        "key": "template_info.detail.reference",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__note",
+        "key": "template_info.detail.note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__currency_code",
+        "key": "template_info.detail.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__terms_and_conditions",
+        "key": "template_info.detail.terms_and_conditions",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__memo",
+        "key": "template_info.detail.memo",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__attachments",
+        "key": "template_info.detail.attachments",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__payment_term__term_type",
+        "key": "template_info.detail.payment_term.term_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__name__given_name",
+        "key": "template_info.invoicer.name.given_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__name__surname",
+        "key": "template_info.invoicer.name.surname",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__address_line_1",
+        "key": "template_info.invoicer.address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__address_line_2",
+        "key": "template_info.invoicer.address.address_line_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__admin_area_2",
+        "key": "template_info.invoicer.address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__admin_area_1",
+        "key": "template_info.invoicer.address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__postal_code",
+        "key": "template_info.invoicer.address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__country_code",
+        "key": "template_info.invoicer.address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__email_address",
+        "key": "template_info.invoicer.email_address",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__phones",
+        "key": "template_info.invoicer.phones",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__website",
+        "key": "template_info.invoicer.website",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__tax_id",
+        "key": "template_info.invoicer.tax_id",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__logo_url",
+        "key": "template_info.invoicer.logo_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__additional_notes",
+        "key": "template_info.invoicer.additional_notes",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__primary_recipients",
+        "key": "template_info.primary_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__additional_recipients",
+        "key": "template_info.additional_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__items",
+        "key": "template_info.items",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__amount__currency_code",
+        "key": "template_info.amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__amount__breakdown__custom",
+        "key": "template_info.amount.breakdown.custom",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "template_info__amount__breakdown__shipping",
+        "key": "template_info.amount.breakdown.shipping",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "template_info__amount__breakdown__discount",
+        "key": "template_info.amount.breakdown.discount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "settings__template_item_settings",
+        "key": "settings.template_item_settings",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "settings__template_subtotal_settings",
+        "key": "settings.template_subtotal_settings",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "unit_of_measure",
+        "key": "unit_of_measure",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "standard_template",
+        "key": "standard_template",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "templates_show_template_details",
+    "service": "paypal",
+    "category": "templates",
+    "description": "Shows details for a template, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v2/invoicing/templates/:template_id",
+    "params": [
+      {
+        "name": "template_id",
+        "key": "template_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "templates_fully_update_template",
+    "service": "paypal",
+    "category": "templates",
+    "description": "Fully updates a template, by ID. In the JSON request body, include a complete `template` object. This call does not support partial updates.",
+    "method": "PUT",
+    "url": "{{base_url}}/v2/invoicing/templates/:template_id",
+    "params": [
+      {
+        "name": "template_id",
+        "key": "template_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "key": "name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "default_template",
+        "key": "default_template",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__tax_calculated_after_discount",
+        "key": "template_info.configuration.tax_calculated_after_discount",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__tax_inclusive",
+        "key": "template_info.configuration.tax_inclusive",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__allow_tip",
+        "key": "template_info.configuration.allow_tip",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__partial_payment__allow_partial_payment",
+        "key": "template_info.configuration.partial_payment.allow_partial_payment",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "template_info__configuration__partial_payment__minimum_amount_due",
+        "key": "template_info.configuration.partial_payment.minimum_amount_due",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__reference",
+        "key": "template_info.detail.reference",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__note",
+        "key": "template_info.detail.note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__currency_code",
+        "key": "template_info.detail.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__terms_and_conditions",
+        "key": "template_info.detail.terms_and_conditions",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__memo",
+        "key": "template_info.detail.memo",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__attachments",
+        "key": "template_info.detail.attachments",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__detail__payment_term__term_type",
+        "key": "template_info.detail.payment_term.term_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__name__given_name",
+        "key": "template_info.invoicer.name.given_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__name__surname",
+        "key": "template_info.invoicer.name.surname",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__address_line_1",
+        "key": "template_info.invoicer.address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__address_line_2",
+        "key": "template_info.invoicer.address.address_line_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__admin_area_2",
+        "key": "template_info.invoicer.address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__admin_area_1",
+        "key": "template_info.invoicer.address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__postal_code",
+        "key": "template_info.invoicer.address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__address__country_code",
+        "key": "template_info.invoicer.address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__email_address",
+        "key": "template_info.invoicer.email_address",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__phones",
+        "key": "template_info.invoicer.phones",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__website",
+        "key": "template_info.invoicer.website",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__tax_id",
+        "key": "template_info.invoicer.tax_id",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__logo_url",
+        "key": "template_info.invoicer.logo_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__invoicer__additional_notes",
+        "key": "template_info.invoicer.additional_notes",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__primary_recipients",
+        "key": "template_info.primary_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__additional_recipients",
+        "key": "template_info.additional_recipients",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__items",
+        "key": "template_info.items",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "template_info__amount__currency_code",
+        "key": "template_info.amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "template_info__amount__breakdown__custom",
+        "key": "template_info.amount.breakdown.custom",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "template_info__amount__breakdown__shipping",
+        "key": "template_info.amount.breakdown.shipping",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "template_info__amount__breakdown__discount",
+        "key": "template_info.amount.breakdown.discount",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "settings__template_item_settings",
+        "key": "settings.template_item_settings",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "settings__template_subtotal_settings",
+        "key": "settings.template_subtotal_settings",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "unit_of_measure",
+        "key": "unit_of_measure",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "standard_template",
+        "key": "standard_template",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "templates_delete_template",
+    "service": "paypal",
+    "category": "templates",
+    "description": "Deletes a template, by ID.",
+    "method": "DELETE",
+    "url": "{{base_url}}/v2/invoicing/templates/:template_id",
+    "params": [
+      {
+        "name": "template_id",
+        "key": "template_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "catalog_products_create_product",
+    "service": "paypal",
+    "category": "catalog_products",
+    "description": "Creates a product.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/catalogs/products",
+    "params": [],
+    "risk": "write"
+  },
+  {
+    "name": "catalog_products_list_products",
+    "service": "paypal",
+    "category": "catalog_products",
+    "description": "Lists products.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/catalogs/products?page_size=10&page=1&total_required=true",
+    "params": [
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The number of items to return in the response."
+      },
+      {
+        "name": "page",
+        "key": "page",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "A non-zero integer which is the start index of the entire list of items that are returned in the response. So, the combination of `page=1` and `page_size=20` returns the first 20 items. The combination of `page=2` and `page_size=20` returns the next 20 items."
+      },
+      {
+        "name": "total_required",
+        "key": "total_required",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether to show the total items and total pages in the response."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "catalog_products_show_product_details",
+    "service": "paypal",
+    "category": "catalog_products",
+    "description": "Shows details for a product, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/catalogs/products/:product_id",
+    "params": [
+      {
+        "name": "product_id",
+        "key": "product_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "catalog_products_update_product",
+    "service": "paypal",
+    "category": "catalog_products",
+    "description": "Updates a product, by ID. You can patch these attributes and objects:<table><thead><tr><th>Attribute or object</th><th>Operations</th></tr></thead><tbody><tr><td><code>description</code></td><td>add, replace, remove</td></tr><tr><td><code>category</code></td><td>add, replace, remove</td></tr><tr><td><code>image_url</code></td><td>add, replace, remove</td></tr><tr><td><code>home_url</code></td><td>add, replace, remove</td></tr></tbody></table>",
+    "method": "PATCH",
+    "url": "{{base_url}}/v1/catalogs/products/:product_id",
+    "params": [
+      {
+        "name": "product_id",
+        "key": "product_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "plans_create_plan",
+    "service": "paypal",
+    "category": "plans",
+    "description": "Creates a plan that defines pricing and billing cycle details for subscriptions.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/plans",
+    "params": [
+      {
+        "name": "product_id",
+        "key": "product_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "key": "name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "description",
+        "key": "description",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "key": "status",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "billing_cycles",
+        "key": "billing_cycles",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "payment_preferences__auto_bill_outstanding",
+        "key": "payment_preferences.auto_bill_outstanding",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      },
+      {
+        "name": "payment_preferences__setup_fee__value",
+        "key": "payment_preferences.setup_fee.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_preferences__setup_fee__currency_code",
+        "key": "payment_preferences.setup_fee.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_preferences__setup_fee_failure_action",
+        "key": "payment_preferences.setup_fee_failure_action",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_preferences__payment_failure_threshold",
+        "key": "payment_preferences.payment_failure_threshold",
+        "location": "body",
+        "required": false,
+        "type": "number",
+        "description": ""
+      },
+      {
+        "name": "taxes__percentage",
+        "key": "taxes.percentage",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "taxes__inclusive",
+        "key": "taxes.inclusive",
+        "location": "body",
+        "required": false,
+        "type": "boolean",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "plans_list_plans",
+    "service": "paypal",
+    "category": "plans",
+    "description": "Lists billing plans.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/billing/plans?page_size=10&page=1&total_required=true",
+    "params": [
+      {
+        "name": "product_id",
+        "key": "product_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the response by a Product ID."
+      },
+      {
+        "name": "plan_ids",
+        "key": "plan_ids",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the response by list of plan IDs. Filter supports upto 10 plan IDs."
+      },
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The number of items to return in the response."
+      },
+      {
+        "name": "page",
+        "key": "page",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "A non-zero integer which is the start index of the entire list of items to return in the response. The combination of `page=1` and `page_size=20` returns the first 20 items. The combination of `page=2` and `page_size=20` returns the next 20 items."
+      },
+      {
+        "name": "total_required",
+        "key": "total_required",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether to show the total count in the response."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "plans_show_plan_details",
+    "service": "paypal",
+    "category": "plans",
+    "description": "Shows details for a plan, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/billing/plans/:billing_plan_id",
+    "params": [
+      {
+        "name": "billing_plan_id",
+        "key": "billing_plan_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "plans_update_plan",
+    "service": "paypal",
+    "category": "plans",
+    "description": "Updates a plan with the `CREATED` or `ACTIVE` status. For an `INACTIVE` plan, you can make only status updates.<br/>You can patch these attributes and objects:<table><thead><tr><th>Attribute or object</th><th>Operations</th></tr></thead><tbody><tr><td><code>description</code></td><td>replace</td></tr><tr><td><code>payment_preferences.auto_bill_outstanding</code></td><td>replace</td></tr><tr><td><code>taxes.percentage</code></td><td>replace</td></tr><tr><td><code>payment_preferences.payment_failure_threshold</code></td><td>replace</td></tr><tr><td><code>payment_preferences.setup_fee</code></td>",
+    "method": "PATCH",
+    "url": "{{base_url}}/v1/billing/plans/:billing_plan_id",
+    "params": [
+      {
+        "name": "billing_plan_id",
+        "key": "billing_plan_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "plans_deactivate_plan",
+    "service": "paypal",
+    "category": "plans",
+    "description": "Deactivates a plan, by ID.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/plans/:billing_plan_id/deactivate",
+    "params": [
+      {
+        "name": "billing_plan_id",
+        "key": "billing_plan_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "plans_activate_plan",
+    "service": "paypal",
+    "category": "plans",
+    "description": "Activates a plan, by ID.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/plans/:billing_plan_id/activate",
+    "params": [
+      {
+        "name": "billing_plan_id",
+        "key": "billing_plan_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "plans_update_pricing",
+    "service": "paypal",
+    "category": "plans",
+    "description": "Updates pricing for a plan. For example, you can update a regular billing cycle from $5 per month to $7 per month.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/plans/:billing_plan_id/update-pricing-schemes",
+    "params": [
+      {
+        "name": "billing_plan_id",
+        "key": "billing_plan_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "pricing_schemes",
+        "key": "pricing_schemes",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "subscriptions_create_subscription",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Creates a subscription.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/subscriptions",
+    "params": [
+      {
+        "name": "plan_id",
+        "key": "plan_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "start_time",
+        "key": "start_time",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_amount__currency_code",
+        "key": "shipping_amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_amount__value",
+        "key": "shipping_amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__name__given_name",
+        "key": "subscriber.name.given_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__name__surname",
+        "key": "subscriber.name.surname",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__email_address",
+        "key": "subscriber.email_address",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__shipping_address__name__full_name",
+        "key": "subscriber.shipping_address.name.full_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__shipping_address__address__address_line_1",
+        "key": "subscriber.shipping_address.address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__shipping_address__address__address_line_2",
+        "key": "subscriber.shipping_address.address.address_line_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__shipping_address__address__admin_area_2",
+        "key": "subscriber.shipping_address.address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__shipping_address__address__admin_area_1",
+        "key": "subscriber.shipping_address.address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__shipping_address__address__postal_code",
+        "key": "subscriber.shipping_address.address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "subscriber__shipping_address__address__country_code",
+        "key": "subscriber.shipping_address.address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__brand_name",
+        "key": "application_context.brand_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__locale",
+        "key": "application_context.locale",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__shipping_preference",
+        "key": "application_context.shipping_preference",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__user_action",
+        "key": "application_context.user_action",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__payment_method__payer_selected",
+        "key": "application_context.payment_method.payer_selected",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__payment_method__payee_preferred",
+        "key": "application_context.payment_method.payee_preferred",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__return_url",
+        "key": "application_context.return_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__cancel_url",
+        "key": "application_context.cancel_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "subscriptions_show_subscription_details",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Shows details for a subscription, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/billing/subscriptions/:subscription_id",
+    "params": [
+      {
+        "name": "subscription_id",
+        "key": "subscription_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "fields",
+        "key": "fields",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "List of fields that are to be returned in the response. Possible value for fields are last_failed_payment and plan."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "subscriptions_update_subscription",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Updates a subscription which could be in <code>ACTIVE</code> or <code>SUSPENDED</code> status. You can override plan level default attributes by providing customised values for plan path in the patch request.<br /> <ul> <li>You cannot update attributes that have already completed (Example - trial cycles can\u2019t be updated if completed).</li> <li>Once overridden, changes to plan resource will not impact subscription.</li> <li>Any price update will not impact billing cycles within next 10 days (Applicable only for subscriptions funded by PayPal account).</li> </ul> Following are the fields eligibl",
+    "method": "PATCH",
+    "url": "{{base_url}}/v1/billing/subscriptions/:subscription_id",
+    "params": [
+      {
+        "name": "subscription_id",
+        "key": "subscription_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "subscriptions_revise_plan_or_quantity_of_subscription",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Updates the quantity of the product or service in a subscription. You can also use this method to switch the plan and update the `shipping_amount`, `shipping_address` values for the subscription. This type of update requires the buyer's consent.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/subscriptions/:subscription_id/revise",
+    "params": [
+      {
+        "name": "subscription_id",
+        "key": "subscription_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "plan_id",
+        "key": "plan_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_amount__currency_code",
+        "key": "shipping_amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_amount__value",
+        "key": "shipping_amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_address__name__full_name",
+        "key": "shipping_address.name.full_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_address__address__address_line_1",
+        "key": "shipping_address.address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_address__address__address_line_2",
+        "key": "shipping_address.address.address_line_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_address__address__admin_area_2",
+        "key": "shipping_address.address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_address__address__admin_area_1",
+        "key": "shipping_address.address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_address__address__postal_code",
+        "key": "shipping_address.address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "shipping_address__address__country_code",
+        "key": "shipping_address.address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__brand_name",
+        "key": "application_context.brand_name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__locale",
+        "key": "application_context.locale",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__shipping_preference",
+        "key": "application_context.shipping_preference",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__payment_method__payer_selected",
+        "key": "application_context.payment_method.payer_selected",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__payment_method__payee_preferred",
+        "key": "application_context.payment_method.payee_preferred",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__return_url",
+        "key": "application_context.return_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "application_context__cancel_url",
+        "key": "application_context.cancel_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "subscriptions_suspend_subscription",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Suspends the subscription.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/subscriptions/:subscription_id/suspend",
+    "params": [
+      {
+        "name": "subscription_id",
+        "key": "subscription_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "reason",
+        "key": "reason",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "subscriptions_activate_subscription",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Activates the subscription.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/subscriptions/:subscription_id/activate",
+    "params": [
+      {
+        "name": "subscription_id",
+        "key": "subscription_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "reason",
+        "key": "reason",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "subscriptions_cancel_subscription",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Cancels the subscription.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/subscriptions/:subscription_id/cancel",
+    "params": [
+      {
+        "name": "subscription_id",
+        "key": "subscription_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "reason",
+        "key": "reason",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "subscriptions_capture_authorized_payment_on_subscription",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Captures an authorized payment from the subscriber on the subscription.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/billing/subscriptions/:subscription_id/capture",
+    "params": [
+      {
+        "name": "subscription_id",
+        "key": "subscription_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "capture_type",
+        "key": "capture_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__currency_code",
+        "key": "amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "amount__value",
+        "key": "amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "subscriptions_list_transactions_for_subscription",
+    "service": "paypal",
+    "category": "subscriptions",
+    "description": "Lists transactions for a subscription.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/billing/subscriptions/:subscription_id/transactions?start_time=2022-01-01T00:00:00.000Z&end_time=2030-01-01T00:00:00.000Z",
+    "params": [
+      {
+        "name": "subscription_id",
+        "key": "subscription_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "start_time",
+        "key": "start_time",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "(Required) The start time of the range of transactions to list."
+      },
+      {
+        "name": "end_time",
+        "key": "end_time",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "(Required) The end time of the range of transactions to list."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "payouts_create_batch_payout",
+    "service": "paypal",
+    "category": "payouts",
+    "description": "Creates a batch payout. In the JSON request body, pass a `sender_batch_header` and an `items` array. The `sender_batch_header` defines how to handle the payout. The `items` array defines the payout items.<br/>You can make payouts to one or more recipients.<blockquote><strong>Notes:</strong> <ul><li><p>PayPal does not process duplicate payouts. If you specify a <code>sender_batch_id</code> that was used in the last 30 days, the API rejects the request with an error message that shows the duplicate <code>sender_batch_id</code> and includes a HATEOAS link to the original payout with the same <cod",
+    "method": "POST",
+    "url": "{{base_url}}/v1/payments/payouts",
+    "params": [
+      {
+        "name": "sender_batch_header__sender_batch_id",
+        "key": "sender_batch_header.sender_batch_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sender_batch_header__email_subject",
+        "key": "sender_batch_header.email_subject",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "sender_batch_header__email_message",
+        "key": "sender_batch_header.email_message",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "items",
+        "key": "items",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "payouts_show_payout_batch_details",
+    "service": "paypal",
+    "category": "payouts",
+    "description": "Shows the latest status of a batch payout. Includes the transaction status and other data for individual payout items.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/payments/payouts/:payout_batch_id",
+    "params": [
+      {
+        "name": "payout_batch_id",
+        "key": "payout_batch_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "fields",
+        "key": "fields",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Shows details for only the specified fields."
+      },
+      {
+        "name": "page",
+        "key": "page",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "A non-zero integer representing the page of the results."
+      },
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The maximum number of results to return at one time. Value is a non-negative, non-zero integer. If the user chooses pagination, the maximum page is `1000`."
+      },
+      {
+        "name": "total_required",
+        "key": "total_required",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether to show the total items and total pages count in the response."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "payouts_show_payout_item_details",
+    "service": "paypal",
+    "category": "payouts",
+    "description": "Shows details for a payout item, by ID. A <code>payout_item_id</code> helps you identify denied payments. If a payment is denied, you can use the <code>payout_item_id</code> to identify the payment even if it lacks a <code>transaction_id</code>.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/payments/payouts-item/:payout_item_id",
+    "params": [
+      {
+        "name": "payout_item_id",
+        "key": "payout_item_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "payouts_cancel_unclaimed_payout_item",
+    "service": "paypal",
+    "category": "payouts",
+    "description": "Cancels an unclaimed payout item, by ID. If no one claims the unclaimed item within 30 days, the API automatically returns the funds to the sender. Use this call to cancel the unclaimed item before the automatic 30-day refund. You can cancel payout items with a <code>transaction_status</code> of <code>UNCLAIMED</code>.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/payments/payouts-item/:payout_item_id/cancel",
+    "params": [
+      {
+        "name": "payout_item_id",
+        "key": "payout_item_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "webhooks_list_available_events",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Lists available events to which any webhook can subscribe. For a list of supported events, see [Webhook event names](https://developer.paypal.com/docs/api/notifications/webhooks/event-names/).",
+    "method": "GET",
+    "url": "{{base_url}}/v1/notifications/webhooks-event-types",
+    "params": [],
+    "risk": "read"
+  },
+  {
+    "name": "webhooks_create_webhook",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Subscribes your webhook listener to events. For testing create a sample webhook endpoint on [https://webhook.site/](https://webhook.site/) to receive webhook events sent by PayPal.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/notifications/webhooks",
+    "params": [
+      {
+        "name": "url",
+        "key": "url",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "event_types",
+        "key": "event_types",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "webhooks_list_webhooks",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Lists webhooks for an app.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/notifications/webhooks",
+    "params": [
+      {
+        "name": "anchor_type",
+        "key": "anchor_type",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the webhooks in the response by an `anchor_id` entity type."
+      },
+      {
+        "name": "anchor_type_",
+        "key": "anchor_type",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the webhooks in the response by an `anchor_id` entity type."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "webhooks_show_webhook_details",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Shows details for a webhook, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/notifications/webhooks/:webhook_id",
+    "params": [
+      {
+        "name": "webhook_id",
+        "key": "webhook_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "webhooks_list_event_notifications",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Lists webhooks event notifications. Use query parameters to filter the response.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/notifications/webhooks-events",
+    "params": [
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The number of webhook event notifications to return in the response."
+      },
+      {
+        "name": "start_time",
+        "key": "start_time",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the webhook event notifications in the response to those created on or after this date and time and on or before the `end_time` value. Both values are in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6) format. Example: `start_time=2013-03-06T11:00:00Z`."
+      },
+      {
+        "name": "end_time",
+        "key": "end_time",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the webhook event notifications in the response to those created on or after the `start_time` and on or before this date and time. Both values are in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6) format. Example: `end_time=2013-03-06T11:00:00Z`."
+      },
+      {
+        "name": "transaction_id",
+        "key": "transaction_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the response to a single transaction, by ID."
+      },
+      {
+        "name": "event_type",
+        "key": "event_type",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the response to a single event."
+      },
+      {
+        "name": "move_to",
+        "key": "move_to",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "offset",
+        "key": "offset",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "prev_offset",
+        "key": "prev_offset",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "index_id",
+        "key": "index_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "webhooks_list_event_subscriptions_for_webhook",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Lists event subscriptions for a webhook, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/notifications/webhooks/:webhook_id/event-types",
+    "params": [
+      {
+        "name": "webhook_id",
+        "key": "webhook_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "webhooks_show_event_notification_details",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Shows details for a webhooks event notification, by ID.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/notifications/webhooks-events/:event_id",
+    "params": [
+      {
+        "name": "event_id",
+        "key": "event_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "webhooks_trigger_a_sample_event",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Creates a product.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/catalogs/products",
+    "params": [
+      {
+        "name": "id",
+        "key": "id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "name",
+        "key": "name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "webhooks_verify_webhook_signature",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Verifies a webhook signature.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/notifications/verify-webhook-signature",
+    "params": [
+      {
+        "name": "webhook_id",
+        "key": "webhook_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "transmission_id",
+        "key": "transmission_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "transmission_time",
+        "key": "transmission_time",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "cert_url",
+        "key": "cert_url",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "auth_algo",
+        "key": "auth_algo",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "transmission_sig",
+        "key": "transmission_sig",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "webhook_event",
+        "key": "webhook_event",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "webhooks_resend_event_notification",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Resends a webhook event notification, by ID. Any pending notifications are not resent.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/notifications/webhooks-events/:event_id/resend",
+    "params": [
+      {
+        "name": "event_id",
+        "key": "event_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "webhook_ids",
+        "key": "webhook_ids",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "webhooks_simulate_webhook_event",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Use the `/simulate-event` resource to use a sample payload to simulate a webhook event. The events that this call generates only serve to validate the connection to the listener URL and to show how webhook events look. Note: You can also use the [Webhooks simulator ](https://developer.paypal.com/dashboard/webhooksSimulator/) to simulate webhook events. Simulates a webhook event. In the JSON request body, specify a sample payload.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/notifications/simulate-event",
+    "params": [
+      {
+        "name": "event_type",
+        "key": "event_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "webhook_id",
+        "key": "webhook_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "url",
+        "key": "url",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "resource_version",
+        "key": "resource_version",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "webhooks_update_webhook",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Updates a webhook to replace webhook fields with new values. Supports only the `replace` operation. Pass a `json_patch` object with `replace` operation and `path`, which is `/url` for a URL or `/event_types` for events. The `value` is either the URL or a list of events.",
+    "method": "PATCH",
+    "url": "{{base_url}}/v1/notifications/webhooks/:webhook_id",
+    "params": [
+      {
+        "name": "webhook_id",
+        "key": "webhook_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "webhooks_delete_webhook",
+    "service": "paypal",
+    "category": "webhooks",
+    "description": "Deletes a webhook, by ID.",
+    "method": "DELETE",
+    "url": "{{base_url}}/v1/notifications/webhooks/:webhook_id",
+    "params": [
+      {
+        "name": "webhook_id",
+        "key": "webhook_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "shipment_tracking_add_tracking_information_for_multiple_payp",
+    "service": "paypal",
+    "category": "shipment_tracking",
+    "description": "Adds tracking information, with or without tracking numbers, for multiple PayPal transactions. Accepts up to 20 tracking IDs. For more information, see <a href=\"https://developer.paypal.com/docs/tracking/integrate/#add-tracking-information-with-tracking-numbers\">Add tracking information with tracking numbers</a> and <a href=\"https://developer.paypal.com/docs/tracking/integrate/#add-tracking-information-without-tracking-numbers\">Add tracking information without tracking numbers</a>.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/shipping/trackers-batch",
+    "params": [
+      {
+        "name": "trackers",
+        "key": "trackers",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "shipment_tracking_show_tracking_information",
+    "service": "paypal",
+    "category": "shipment_tracking",
+    "description": "Shows tracking information, by tracker ID, for a PayPal transaction.",
+    "method": "GET",
+    "url": "{{base_url}}/v1/shipping/trackers/:tracking_id",
+    "params": [
+      {
+        "name": "tracking_id",
+        "key": "tracking_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "shipment_tracking_update_or_cancel_tracking_information_for_",
+    "service": "paypal",
+    "category": "shipment_tracking",
+    "description": "Updates or cancels the tracking information for a PayPal transaction, by ID. To cancel tracking information, call this method and set the status to CANCELLED. For more information, see <a href=\"https://developer.paypal.com/docs/tracking/integrate/#update-or-cancel-tracking-information\">Update or cancel tracking information</a>.",
+    "method": "PUT",
+    "url": "{{base_url}}/v1/shipping/trackers/:tracking_id",
+    "params": [
+      {
+        "name": "tracking_id",
+        "key": "tracking_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "transaction_id",
+        "key": "transaction_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "tracking_number",
+        "key": "tracking_number",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "status",
+        "key": "status",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "carrier",
+        "key": "carrier",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "carrier_name_other",
+        "key": "carrier_name_other",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "transaction_search_list_transactions",
+    "service": "paypal",
+    "category": "transaction_search",
+    "description": "Lists transactions. Specify one or more query parameters to filter the transaction that appear in the response.<blockquote><strong>Notes:</strong> <ul><li>If you specify one or more optional query parameters, the <code>ending_balance</code> response field is empty.</li><li>It takes a maximum of three hours for executed transactions to appear in the list transactions call.</li><li>This call lists transaction for the previous three years.</li></ul></blockquote>",
+    "method": "GET",
+    "url": "{{base_url}}/v1/reporting/transactions?fields=transaction_info,payer_info,shipping_info,auction_info,cart_info,incentive_info,store_info&start_date=2025-02-20T23:59:59.999Z&end_date=2025-03-20T00:00:00.000Z",
+    "params": [
+      {
+        "name": "fields",
+        "key": "fields",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates which fields appear in the response. Value is a single field or a comma-separated list of fields. The <code>transaction_info</code> value returns only the transaction details in the response. To include all fields in the response, specify <code>fields=all</code>. Valid fields are:<ul><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-transaction_info\"><code>transaction_info</code></a>. The transaction information. Includes the ID of the PayPal account of the payee, the PayPal-generated transaction ID, the PayPal-generated base ID, the PayPal reference ID type, the transaction event code, the date and time when the transaction was initiated and was last updated, the transaction amounts including the PayPal fee, any discounts, insurance, the transaction status, and other information about the transaction.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-definition-payer_info\"><code>payer_info</code></a>. The payer information. Includes the PayPal customer account ID and the payer's email address, primary phone number, name, country code, address, and whether the payer is verified or unverified.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-shipping_info\"><code>shipping_info</code></a>. The shipping information. Includes the recipient's name, the shipping method for this order, the shipping address for this order, and the secondary address associated with this order.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-auction_info\"><code>auction_info</code></a>. The auction information. Includes the name of the auction site, the auction site URL, the ID of the customer who makes the purchase in the auction, and the date and time when the auction closes.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-cart_info\"><code>cart_info</code></a>. The cart information. Includes an array of item details, whether the item amount or the shipping amount already includes tax, and the ID of the invoice for PayPal-generated invoices.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-incentive_info\"><code>incentive_info</code></a>. An array of incentive detail objects. Each object includes the incentive, such as a special offer or coupon, the incentive amount, and the incentive program code that identifies a merchant loyalty or incentive program.</li><li><a href=\"https://developer.paypal.com/api/transaction-search/v1/#definition-store_info\"><code>store_info</code></a>. The store information. Includes the ID of the merchant store and the terminal ID for the checkout stand in the merchant store.</li></ul>"
+      },
+      {
+        "name": "start_date",
+        "key": "start_date",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "(Required) Filters the transactions in the response by a start date and time, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). Seconds are required. Fractional seconds are optional."
+      },
+      {
+        "name": "end_date",
+        "key": "end_date",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "(Required) Filters the transactions in the response by an end date and time, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). Seconds are required. Fractional seconds are optional. The maximum supported range is 31 days."
+      },
+      {
+        "name": "transaction_id",
+        "key": "transaction_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a PayPal transaction ID. A valid transaction ID is 17 characters long, except for an <a href=\"https://developer.paypal.com/api/payments/v1/#definition-order>order ID</a>, which is 19 characters long.<blockquote><strong>Note:</strong> A transaction ID is not unique in the reporting system. The response can list two transactions with the same ID. One transaction can be balance affecting while the other is non-balance affecting.</blockquote>"
+      },
+      {
+        "name": "transaction_type",
+        "key": "transaction_type",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a PayPal transaction event code. See [Transaction event codes](https://developer.paypal.com/docs/integration/direct/transaction-search/transaction-event-codes/)."
+      },
+      {
+        "name": "transaction_status",
+        "key": "transaction_status",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a PayPal transaction status code. Value is:<table><thead><tr><th>Status&nbsp;code</th><th>Description</th></tr></thead><tbody><tr><td><code>D</code></td><td>PayPal or merchant rules denied the transaction.</td></tr><tr><td><code>P</code></td><td>The transaction is pending. The transaction was created but waits for another payment process to complete, such as an ACH transaction, before the status changes to <code>S</code>.</td></tr><tr><td><code>S</code></td><td>The transaction successfully completed without a denial and after any pending statuses.</td></tr><tr><td><code>V</code></td><td>A successful transaction was reversed and funds were refunded to the original sender.</td></tr></tbody></table>"
+      },
+      {
+        "name": "transaction_amount",
+        "key": "transaction_amount",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a gross transaction amount range. Specify the range as `<start-range> TO <end-range>`, where `<start-range>` is the lower limit of the gross PayPal transaction amount and `<end-range>` is the upper limit of the gross transaction amount. Specify the amounts in lower denominations. For example, to search for transactions from $5.00 to $10.05, specify `[500 TO 1005]`.<blockquote><strong>Note:</strong>The values must be URL encoded.</blockquote>"
+      },
+      {
+        "name": "transaction_currency",
+        "key": "transaction_currency",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a [three-character ISO-4217 currency code](https://developer.paypal.com/api/rest/reference/currency-codes/) for the PayPal transaction currency."
+      },
+      {
+        "name": "payment_instrument_type",
+        "key": "payment_instrument_type",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a payment instrument type. Value is either:<ul><li><code>CREDITCARD</code>. Returns a direct credit card transaction with a corresponding value.</li><li><code>DEBITCARD</code>. Returns a debit card transaction with a corresponding value.</li></ul>If you omit this parameter, the API does not apply this filter."
+      },
+      {
+        "name": "balance_affecting_records_only",
+        "key": "balance_affecting_records_only",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether the response includes only balance-impacting transactions or all transactions. Value is either:<ul><li><code>Y</code>. The default. The response includes only balance transactions.</li><li><code>N</code>. The response includes all transactions.</li></ul>"
+      },
+      {
+        "name": "terminal_id",
+        "key": "terminal_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a terminal ID."
+      },
+      {
+        "name": "store_id",
+        "key": "store_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a store ID."
+      },
+      {
+        "name": "page",
+        "key": "page",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The zero-relative start index of the entire list of items that are returned in the response. So, the combination of `page=1` and `page_size=20` returns the first 20 items."
+      },
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The number of items to return in the response. So, the combination of `page=1` and `page_size=20` returns the first 20 items. The combination of `page=2` and `page_size=20` returns the next 20 items."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "transaction_search_list_all_balances",
+    "service": "paypal",
+    "category": "transaction_search",
+    "description": "List all balances. Specify date time to list balances for that time that appear in the response.<blockquote><strong>Notes:</strong> <ul><li>It takes a maximum of three hours for balances to appear in the list balances call.</li><li>This call lists balances upto the previous three years.</li></ul></blockquote>",
+    "method": "GET",
+    "url": "{{base_url}}/v1/reporting/balances?as_of_time=2022-03-20T00:00:00.000Z&currency_code=ALL&include_crypto_currencies=true",
+    "params": [
+      {
+        "name": "as_of_time",
+        "key": "as_of_time",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "List balances in the response at the date time provided, will return the last refreshed balance in the system when not provided."
+      },
+      {
+        "name": "currency_code",
+        "key": "currency_code",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the transactions in the response by a [three-character ISO-4217 currency code](https://developer.paypal.com/docs/api/reference/currency-codes/) for the PayPal transaction currency."
+      },
+      {
+        "name": "include_crypto_currencies",
+        "key": "include_crypto_currencies",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Indicates whether the response list balances including crypto transactions. Value is either:<ul><li><code>false</code>. The default. The response doesn't include crypto transactions.</li><li><code>true</code>. The response also includes crypto transactions.</li></ul>"
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "currency_exchange_create_currency_exchange_quote",
+    "service": "paypal",
+    "category": "currency_exchange",
+    "description": "Generated from cURL: curl -X POST https://api.paypal.com/v2/pricing/quote-exchange-rates \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer <ACCESS_TOKEN>\" \\ -d '{ \"organization\": \"YOUR_ORGANIZATION_PATH\", \"quote_items\": [ { \"base_currency\": \"USD\", \"base_amount\": \"100.00\", \"quote_currency\": \"EUR\", \"markup_percent\": \"1\", \"fx_id\": \"PREVIOUS_FX_ID_IF_ANY\" } ] }'",
+    "method": "POST",
+    "url": "{{base_url}}/v2/pricing/quote-exchange-rates",
+    "params": [
+      {
+        "name": "quote_items",
+        "key": "quote_items",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "currency_exchange_get_currency_exchange_quote",
+    "service": "paypal",
+    "category": "currency_exchange",
+    "description": "Get currency exchange quote",
+    "method": "GET",
+    "url": "{{base_url}}/v2/pricing/quote-exchange-rates/{{fx_id}}",
+    "params": [],
+    "risk": "read"
+  },
+  {
+    "name": "disputes_list_disputes",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Lists disputes with a summary set of details, which shows the <code>dispute_id</code>, <code>reason</code>, <code>status</code>, <code>dispute_state</code>, <code>dispute_life_cycle_stage</code>, <code>dispute_channel</code>, <code>dispute_amount</code>, <code>create_time</code> and <code>update_time</code> fields.<br/><br/>To filter the disputes in the response, specify one or more optional query parameters. To limit the number of disputes in the response, specify the <code>page_size</code> query parameter.<br/><br/>To list multiple disputes, set these query parameters in the request:<ul><li>",
+    "method": "GET",
+    "url": "{{base_url}}/v1/customer/disputes",
+    "params": [
+      {
+        "name": "start_time",
+        "key": "start_time",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the disputes in the response by a creation date and time. The start time must be within the last 180 days. Value is in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, *`yyyy`*-*`MM`*-*`dd`*`T`*`HH`*:*`mm`*:*`ss`*.*`SSS`*`Z`.<br/><br/>You can specify either but not both the `start_time` and `disputed_transaction_id` query parameters."
+      },
+      {
+        "name": "disputed_transaction_id",
+        "key": "disputed_transaction_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the disputes in the response by a transaction, by ID.<br/><br/>You can specify either but not both the `start_time` and `disputed_transaction_id` query parameter."
+      },
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Limits the number of disputes in the response to this value."
+      },
+      {
+        "name": "next_page_token",
+        "key": "next_page_token",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The token that describes the next page of results to fetch. The <a href=\"https://developer.paypal.com/api/customer-disputes/v1/#disputes_list\">list disputes</a> call returns this token in the HATEOAS links in the response."
+      },
+      {
+        "name": "dispute_state",
+        "key": "dispute_state",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "Filters the disputes in the response by a state. Separate multiple values with a comma (`,`). When you specify more than one dispute_state, the response lists disputes that belong to any of the specified dispute_state."
+      },
+      {
+        "name": "update_time_before",
+        "key": "update_time_before",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The date and time when the dispute was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, *`yyyy`*-*`MM`*-*`dd`*`T`*`HH`*:*`mm`*:*`ss`*.*`SSS`*`Z`. update_time_before must be within the last 180 days and the default is the current time."
+      },
+      {
+        "name": "update_time_after",
+        "key": "update_time_after",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The date and time when the dispute was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, *`yyyy`*-*`MM`*-*`dd`*`T`*`HH`*:*`mm`*:*`ss`*.*`SSS`*`Z`. update_time_after must be within the last 180 days and the default is the maximum time (180 days) supported."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "disputes_show_dispute_details",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Shows details for a dispute, by ID.<blockquote><strong>Note:</strong> The fields that appear in the response depend on whether you access this call through first- or third-party access. For example, if the merchant shows dispute details through third-party access, the customer's email ID does not appear.</blockquote>",
+    "method": "GET",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "disputes_accept_claim",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Accepts liability for a claim, by ID. When you accept liability for a claim, the dispute closes in the customer\u2019s favor and PayPal automatically refunds money to the customer from the merchant's account. Allowed accept_claim_type values for the request is available in dispute details <a href=\"https://developer.paypal.com/api/customer-disputes/v1/#definition-allowed_response_options\">allowed response options</a> object.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/accept-claim",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "accept_claim_reason",
+        "key": "accept_claim_reason",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "accept_claim_type",
+        "key": "accept_claim_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_appeal_dispute",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Appeals a dispute, by ID. To appeal a dispute, use the <code>appeal</code> link in the <a href=\"https://developer.paypal.com/api/rest/responses/#hateoas-links/\">HATEOAS links</a> from the show dispute details response. If this link does not appear, you cannot appeal the dispute. Submit new evidence as a document or notes in the JSON request body. The following rules apply to document file types and sizes:<ul><li>The merchant can upload up to 50 MB of files for a case.</li><li>Individual files must be smaller than 10 MB.</li><li>The supported file formats are JPG, GIF, PNG, and PDF.</li></ul><b",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/appeal",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_settle_dispute",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "<blockquote><strong>Important:</strong> This method is for sandbox use only.</blockquote> Settles a dispute in either the customer's or merchant's favor. Merchants can make this call in the sandbox to complete end-to-end dispute resolution testing, which mimics the dispute resolution that PayPal agents normally complete. To make this call, the dispute <code>status</code> must be <code>UNDER_REVIEW</code>.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/adjudicate",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "adjudication_outcome",
+        "key": "adjudication_outcome",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_update_dispute_status",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "<blockquote><strong>Important:</strong> This method is for sandbox use only.</blockquote> Updates the status of a dispute, by ID, from <code>UNDER_REVIEW</code> to either:<ul><li><code>WAITING_FOR_BUYER_RESPONSE</code></li><li><code>WAITING_FOR_SELLER_RESPONSE</code></li></ul>This status change enables either the customer or merchant to submit evidence for the dispute. To make this call, the dispute <code>status</code> must be <code>UNDER_REVIEW</code>. Specify an <code>action</code> value in the JSON request body to indicate whether the status change enables the customer or merchant to submit",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/require-evidence",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "action",
+        "key": "action",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_make_offer_to_resolve_dispute",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Makes an offer to the other party to resolve a dispute, by ID. To make this call, the stage in the dispute lifecycle must be `INQUIRY`. If the customer accepts the offer, PayPal automatically makes a refund. Allowed offer_type values for the request is available in dispute details <a href=\"https://developer.paypal.com/api/customer-disputes/v1/#definition-allowed_response_options\">allowed response options</a> object.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/make-offer",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "offer_amount__currency_code",
+        "key": "offer_amount.currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "offer_amount__value",
+        "key": "offer_amount.value",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "offer_type",
+        "key": "offer_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_provide_evidence",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Provides evidence for a dispute, by ID. A merchant can provide evidence for disputes with the <code>WAITING_FOR_SELLER_RESPONSE</code> status while customers can provide evidence for disputes with the <code>WAITING_FOR_BUYER_RESPONSE</code> status. Evidence can be a proof of delivery or proof of refund document or notes, which can include logs. A proof of delivery document includes a tracking number while a proof of refund document includes a refund ID. For other evidence type, notes and documents can be given. The following rules apply to document file types and sizes:<ul><li>The merchant can",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/provide-evidence",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_acknowledge_returned_item",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Acknowledges that the customer returned an item for a dispute, by ID. A merchant can make this request for disputes with the `MERCHANDISE_OR_SERVICE_NOT_AS_DESCRIBED` reason. Allowed acknowledgement_type values for the request is available in dispute details <a href=\"https://developer.paypal.com/api/customer-disputes/v1/#definition-allowed_response_options\">allowed response options</a> object.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/acknowledge-return-item",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "acknowledgement_type",
+        "key": "acknowledgement_type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_provide_supporting_information_for_dispute",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Provides supporting information for a dispute, by ID. A merchant or buyer can make this request for disputes if they find the `provide-supporting-info` link in the HATEOAS links in the list disputes response. The party can provide the supporting information to PayPal to defend themselves only when the `dispute_life_cycle_stage` is `CHARGEBACK`, `PRE_ARBITRATION`, or `ARBITRATION`. They can provide a note that describes their part with details or upload any supporting documents to support their side. The following rules apply to document file types and sizes:<ul><li>The party can upload up to 5",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/provide-supporting-info",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_escalate_dispute_to_claim",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Escalates the dispute, by ID, to a PayPal claim. To make this call, the stage in the dispute lifecycle must be `INQUIRY`.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/escalate",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_accept_offer_to_resolve_dispute",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "The customer accepts the offer from merchant to resolve a dispute, by ID. PayPal automatically refunds the amount proposed by merchant to the customer.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/accept-offer",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_send_message_about_dispute_to_other_party",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Sends a message about a dispute, by ID, to the other party in the dispute. Merchants and customers can only send messages if the `dispute_life_cycle_stage` value is `INQUIRY`.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/send-message",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "message",
+        "key": "message",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_deny_offer_to_resolve_dispute",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Denies an offer that the merchant proposes for a dispute, by ID.",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id/deny-offer",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "note",
+        "key": "note",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "disputes_partially_update_dispute",
+    "service": "paypal",
+    "category": "disputes",
+    "description": "Partially updates a dispute, by ID. Seller can update the `communication_detail` value or The partner can add the `partner action` information.",
+    "method": "PATCH",
+    "url": "{{base_url}}/v1/customer/disputes/:dispute_id",
+    "params": [
+      {
+        "name": "dispute_id",
+        "key": "dispute_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "manage_accounts_create_managed_account",
+    "service": "paypal",
+    "category": "manage_accounts",
+    "description": "Creates a managed account. Submit the account information in the JSON request body. The details on what information is required for different business types in different countries can be found on [PayPal Developer Portal](https://developer.paypal.com/limited-release/commerce-platform/v3/seller-onboarding/localized-account-examples/). Paypal Sandbox also provides simulators for API samples. Simulator is an alternative of the actual vendor. It will return certain types of responses based on input with special flags, rather than calling vendor to trigger Third Party Verification, such as Know You",
+    "method": "POST",
+    "url": "{{base_url}}/v3/customer/managed-accounts",
+    "params": [
+      {
+        "name": "external_id",
+        "key": "external_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "legal_country_code",
+        "key": "legal_country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "organization",
+        "key": "organization",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "user_id",
+        "key": "user_id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "primary_currency_code",
+        "key": "primary_currency_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "individual_owners",
+        "key": "individual_owners",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "business_entity__type",
+        "key": "business_entity.type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "business_entity__incorporation_details",
+        "key": "business_entity.incorporation_details",
+        "location": "body",
+        "required": false,
+        "type": "object",
+        "description": ""
+      },
+      {
+        "name": "business_entity__names",
+        "key": "business_entity.names",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "business_entity__registered_business_address__address_line_1",
+        "key": "business_entity.registered_business_address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "business_entity__registered_business_address__admin_area_2",
+        "key": "business_entity.registered_business_address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "business_entity__registered_business_address__postal_code",
+        "key": "business_entity.registered_business_address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "business_entity__registered_business_address__country_code",
+        "key": "business_entity.registered_business_address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "business_entity__phone_numbers",
+        "key": "business_entity.phone_numbers",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "business_entity__identification_documents",
+        "key": "business_entity.identification_documents",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "business_entity__beneficial_owners__individuals",
+        "key": "business_entity.beneficial_owners.individuals",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "business_entity__office_bearers",
+        "key": "business_entity.office_bearers",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "business_entity__declarations",
+        "key": "business_entity.declarations",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      },
+      {
+        "name": "agreements",
+        "key": "agreements",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "manage_accounts_search_managed_account_through_external_id",
+    "service": "paypal",
+    "category": "manage_accounts",
+    "description": "Show details for managed accounts, based on search criteria. The detailed description for the endpoint can be found on PayPal Developer Portal under [Managed Accounts](https://developer.paypal.com/api/limited-release/managed-accounts/v3/#managed-accounts_get).",
+    "method": "GET",
+    "url": "{{base_url}}/v3/customer/managed-accounts?external_id={{managed_path_external_id}}",
+    "params": [
+      {
+        "name": "external_id",
+        "key": "external_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "The `external_id` query parameter can be used to request managed accounts with the given external_id. Searches for the managed account that has the given external_id. To locate a particular account, you should set this to the same value that you provided in the /external_id property in your Create Managed Account request."
+      },
+      {
+        "name": "views",
+        "key": "views",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "(Optional) The `views` query parameter can be used to request `process_view` in addition to the default GET response. A comma-separated list of data sets that should be returned in the response. The only allowed value here is process_view, which indicates that the process_view property should be populated in the response; this property contains information on the regulatory processes that must be completed for this merchant."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "manage_accounts_search_managed_account_by_seller_id",
+    "service": "paypal",
+    "category": "manage_accounts",
+    "description": "Shows details for a managed account, by account ID. The detailed description for the endpoint can be found on PayPal Developer Portal under [Managed Accounts](https://developer.paypal.com/api/limited-release/managed-accounts/v3/#managed-accounts_get).",
+    "method": "GET",
+    "url": "{{base_url}}/v3/customer/managed-accounts/:id",
+    "params": [
+      {
+        "name": "id",
+        "key": "id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "views",
+        "key": "views",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "(Optional) The `views` query parameter can be used to request `process_view` in addition to the default GET response."
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "manage_accounts_partially_updates_information_for_a_managed_",
+    "service": "paypal",
+    "category": "manage_accounts",
+    "description": "Partially updates information for a managed account, by account ID. For information about the paths where you can replace, add, or delete information. The fields and endpoint description can be found on PayPal Developer Portal under [Managed Accounts](https://developer.paypal.com/api/limited-release/managed-accounts/v3/#managed-accounts_patch).",
+    "method": "PATCH",
+    "url": "{{base_url}}/v3/customer/managed-accounts/:id",
+    "params": [
+      {
+        "name": "id",
+        "key": "id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "manage_accounts_shows_collection_of_registered_wallet_domain",
+    "service": "paypal",
+    "category": "manage_accounts",
+    "description": "Shows collection of registered wallet domains > Please look at sample (`200 - Add Wallet Domain`) attached under Manage Accounts `PATCH Partially updates information for a managed account` API. The detailed description for the endpoint can be found on PayPal Developer Portal under [Managed Accounts](https://developer.paypal.com/api/limited-release/managed-accounts/v3/#managed-accounts_wallet-domains).",
+    "method": "GET",
+    "url": "{{base_url}}/v3/customer/managed-accounts/:id/wallet-domains",
+    "params": [
+      {
+        "name": "id",
+        "key": "id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "manage_accounts_upload_document_by_verification_token",
+    "service": "paypal",
+    "category": "manage_accounts",
+    "description": "Upload reuqired document from local file directory to pass Third Party Verification (TPV). After uploading document successfully with 204 status code, it will be automaticlly approve or reject by system simulator. In `POST Document Upload` API, uploading a file containing **approve** keyword in `attachment` filed, the document will be automaticlly approved and Third Party Verification (TPV) will be completed; if uploading a file containing **reject** keyword, then document will be rejected and Third Party Verification (TPV) still need to reupload document. > This document upload API only works",
+    "method": "POST",
+    "url": "{{base_url}}/v1/customer/supporting-documents/:token/upload",
+    "params": [
+      {
+        "name": "token",
+        "key": "token",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "vault_payment_source_setup_tokens_create_a_setup_token",
+    "service": "paypal",
+    "category": "vault_payment_source_setup_tokens",
+    "description": "Creates a Setup Token from the given payment source and adds it to the Vault of the associated customer.",
+    "method": "POST",
+    "url": "{{base_url}}/v3/vault/setup-tokens",
+    "params": [
+      {
+        "name": "payment_source__card__number",
+        "key": "payment_source.card.number",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__expiry",
+        "key": "payment_source.card.expiry",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__name",
+        "key": "payment_source.card.name",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__address_line_1",
+        "key": "payment_source.card.billing_address.address_line_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__address_line_2",
+        "key": "payment_source.card.billing_address.address_line_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__admin_area_1",
+        "key": "payment_source.card.billing_address.admin_area_1",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__admin_area_2",
+        "key": "payment_source.card.billing_address.admin_area_2",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__postal_code",
+        "key": "payment_source.card.billing_address.postal_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__card__billing_address__country_code",
+        "key": "payment_source.card.billing_address.country_code",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "write"
+  },
+  {
+    "name": "vault_payment_source_setup_tokens_retrieve_a_setup_token",
+    "service": "paypal",
+    "category": "vault_payment_source_setup_tokens",
+    "description": "Returns a readable representation of temporarily vaulted payment source associated with the setup token id.",
+    "method": "GET",
+    "url": "{{base_url}}/v3/vault/setup-tokens/:setup_token_id",
+    "params": [
+      {
+        "name": "setup_token_id",
+        "key": "setup_token_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "vault_payment_source_payment_token_create_payment_token",
+    "service": "paypal",
+    "category": "vault_payment_source_payment_token",
+    "description": "Creates a Payment Token from the given payment source and adds it to the Vault of the associated customer.",
+    "method": "POST",
+    "url": "{{base_url}}/v3/vault/payment-tokens",
+    "params": [
+      {
+        "name": "payment_source__token__id",
+        "key": "payment_source.token.id",
+        "location": "body",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "payment_source__token__type",
+        "key": "payment_source.token.type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "vault_payment_source_payment_token_retrieve_a_payment_token",
+    "service": "paypal",
+    "category": "vault_payment_source_payment_token",
+    "description": "Creates a Payment Token from the given payment source and adds it to the Vault of the associated customer.",
+    "method": "GET",
+    "url": "{{base_url}}/v3/vault/payment-tokens/:payment_token_id",
+    "params": [
+      {
+        "name": "payment_token_id",
+        "key": "payment_token_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "vault_payment_source_payment_token_delete_payment_token",
+    "service": "paypal",
+    "category": "vault_payment_source_payment_token",
+    "description": "Delete the payment token associated with the payment token id.",
+    "method": "DELETE",
+    "url": "{{base_url}}/v3/vault/payment-tokens/:payment_token_id",
+    "params": [
+      {
+        "name": "payment_token_id",
+        "key": "payment_token_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "vault_payment_source_payment_token_list_all_payment_tokens_f",
+    "service": "paypal",
+    "category": "vault_payment_source_payment_token",
+    "description": "Returns all payment tokens for a customer.",
+    "method": "GET",
+    "url": "{{base_url}}/v3/vault/payment-tokens?customer_id={{vault_customer_id}}",
+    "params": [
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "A non-negative, non-zero integer indicating the maximum number of results to return at one time."
+      },
+      {
+        "name": "page",
+        "key": "page",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "A non-negative, non-zero integer representing the page of the results."
+      },
+      {
+        "name": "total_required",
+        "key": "total_required",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": "A boolean indicating total number of items (total_items) and pages (total_pages) are expected to be returned in the response."
+      },
+      {
+        "name": "customer_id",
+        "key": "customer_id",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "payment_links_and_buttons_creates_a_payment_resource_for_a_s",
+    "service": "paypal",
+    "category": "payment_links_and_buttons",
+    "description": "Creates a payment resource for a single-item purchase",
+    "method": "POST",
+    "url": "{{base_url}}/v1/checkout/payment-resources",
+    "params": [
+      {
+        "name": "type",
+        "key": "type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "integration_mode",
+        "key": "integration_mode",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "reusable",
+        "key": "reusable",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "return_url",
+        "key": "return_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "line_items",
+        "key": "line_items",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "payment_links_and_buttons_list_payment_resources",
+    "service": "paypal",
+    "category": "payment_links_and_buttons",
+    "description": "List payment resources",
+    "method": "GET",
+    "url": "{{base_url}}/v1/checkout/payment-resources",
+    "params": [
+      {
+        "name": "page_size",
+        "key": "page_size",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "page_token",
+        "key": "page_token",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "total_required",
+        "key": "total_required",
+        "location": "query",
+        "required": false,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "payment_links_and_buttons_retrieve_a_payment_resource",
+    "service": "paypal",
+    "category": "payment_links_and_buttons",
+    "description": "Retrieve a payment resource",
+    "method": "GET",
+    "url": "{{base_url}}/v1/checkout/payment-resources/:payment_resource_id",
+    "params": [
+      {
+        "name": "payment_resource_id",
+        "key": "payment_resource_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "read"
+  },
+  {
+    "name": "payment_links_and_buttons_replace_a_payment_resource",
+    "service": "paypal",
+    "category": "payment_links_and_buttons",
+    "description": "Replace a payment resource",
+    "method": "PUT",
+    "url": "{{base_url}}/v1/checkout/payment-resources/:payment_resource_id",
+    "params": [
+      {
+        "name": "payment_resource_id",
+        "key": "payment_resource_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "type",
+        "key": "type",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "integration_mode",
+        "key": "integration_mode",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "reusable",
+        "key": "reusable",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "return_url",
+        "key": "return_url",
+        "location": "body",
+        "required": false,
+        "type": "string",
+        "description": ""
+      },
+      {
+        "name": "line_items",
+        "key": "line_items",
+        "location": "body",
+        "required": false,
+        "type": "array",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  },
+  {
+    "name": "payment_links_and_buttons_delete_a_payment_resource",
+    "service": "paypal",
+    "category": "payment_links_and_buttons",
+    "description": "Delete a payment resource",
+    "method": "DELETE",
+    "url": "{{base_url}}/v1/checkout/payment-resources/:payment_resource_id",
+    "params": [
+      {
+        "name": "payment_resource_id",
+        "key": "payment_resource_id",
+        "location": "path",
+        "required": true,
+        "type": "string",
+        "description": ""
+      }
+    ],
+    "risk": "money_movement"
+  }
+]

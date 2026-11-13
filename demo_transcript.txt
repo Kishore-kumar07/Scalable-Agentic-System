@@ -1,0 +1,66 @@
+[catalog size: 111 tools | embeddings: azure]
+ 
+you> Send an invoice for $50
+  [tools shown to LLM: ['invoices_create_draft_invoice', 'invoices_cancel_sent_invoice', 'invoices_send_invoice_reminder', 'invoices_send_invoice', 'invoices_record_payment_for_invoice', 'invoices_fully_update_invoice']]
+agent> I can do that, but I need the recipient’s email address and what the invoice is for.
+ 
+you> john@example.com, for consulting services
+ 
+=== APPROVAL REQUIRED ===
+  invoices_create_draft_invoice  risk=write  amount=50.0
+  args: {"recipient_email": "john@example.com", "item_name": "consulting services", "unit_amount": "50.00"}
+  Confirm? (y/n): y
+  [tools shown to LLM: ['invoices_create_draft_invoice', 'invoices_cancel_sent_invoice', 'invoices_send_invoice_reminder', 'invoices_send_invoice', 'manage_accounts_create_managed_account', 'currency_exchange_create_currency_exchange_quote', 'manage_accounts_search_managed_account_through_external_id', 'manage_accounts_partially_updates_information_for_a_managed_']]
+agent> Draft invoice created: INV2-6997.
+ 
+you> What was my total sales volume last month?
+  [tools shown to LLM: ['transaction_search_list_all_balances', 'transaction_search_list_transactions', 'subscriptions_list_transactions_for_subscription', 'plans_list_plans', 'catalog_products_list_products', 'disputes_list_disputes', 'plans_update_pricing', 'invoices_generate_invoice_number', 'subscriptions_revise_plan_or_quantity_of_subscription', 'invoices_create_draft_invoice']]
+agent> Your total sales volume last month was USD 1,333.41 across 8 transactions.
+ 
+you> Is there a dispute open from user_123?
+  [tools shown to LLM: ['disputes_list_disputes', 'disputes_provide_supporting_information_for_dispute', 'disputes_deny_offer_to_resolve_dispute', 'disputes_settle_dispute', 'disputes_appeal_dispute', 'disputes_update_dispute_status', 'disputes_show_dispute_details', 'disputes_escalate_dispute_to_claim', 'transaction_search_list_all_balances', 'transaction_search_list_transactions']]
+agent> I found one open dispute, but it’s from user_118, not user_123.
+ 
+Details:
+- Dispute ID: PP-D-5435
+- Status: WAITING_FOR_SELLER_RESPONSE
+- Reason: MERCHANDISE_OR_SERVICE_NOT_RECEIVED
+- Amount: USD 42.00
+ 
+If you want, I can check for any other disputes too.
+ 
+you> What tools are available for managing invoices?
+  [tools shown to LLM: ['invoices_generate_invoice_number', 'invoices_search_for_invoices', 'invoices_show_invoice_details', 'invoices_list_invoices', 'invoices_create_draft_invoice', 'invoices_delete_invoice', 'disputes_list_disputes', 'disputes_provide_supporting_information_for_dispute']]
+agent> Available invoice tools:
+- invoices_generate_invoice_number
+- invoices_create_draft_invoice
+- invoices_show_invoice_details
+- invoices_list_invoices
+- invoices_search_for_invoices
+- invoices_delete_invoice
+- invoices_send_invoice
+- invoices_send_invoice_reminder
+- invoices_cancel_sent_invoice
+- invoices_fully_update_invoice
+- invoices_generate_qr_code
+- invoices_record_payment_for_invoice
+- invoices_record_refund_for_invoice
+- templates_create_template
+ 
+ 
+you> How do refunds work?
+  [tools shown to LLM: ['invoices_generate_invoice_number', 'invoices_search_for_invoices', 'invoices_show_invoice_details', 'invoices_list_invoices', 'payments_show_refund_details', 'invoices_record_refund_for_invoice', 'payments_refund_captured_payment', 'invoices_delete_external_refund']]
+agent> Refunds work on completed payments, not directly on invoices.
+ 
+- For captured payments, you can issue a refund using the original capture/transaction ID.
+- Full refunds and partial refunds are supported.
+- Refund actions are money-movement actions and require confirmation.
+- The invoice docs here don’t describe an invoice refund flow or refund-specific invoice statuses. They mention draft, sent, cancelled, and paid.
+ 
+you> What's the status of my last request?
+  [tools shown to LLM: ['disputes_update_dispute_status', 'disputes_list_disputes', 'subscriptions_update_subscription', 'payouts_show_payout_batch_details', 'payouts_cancel_unclaimed_payout_item', 'orders_update_order', 'invoices_generate_invoice_number', 'invoices_search_for_invoices']]
+agent> Your last recorded request was successful.
+ 
+- Tool: `invoices_create_draft_invoice`
+- Status: `ok`
+- Time: 2026-11-13T19:37:15
